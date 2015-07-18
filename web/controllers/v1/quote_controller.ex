@@ -3,14 +3,14 @@ defmodule QuotesApi.V1.QuoteController do
 
   alias QuotesApi.Quote
 
-  plug :scrub_params, "quote" when action in [:create, :update]
+  plug :scrub_params, "data" when action in [:create, :update]
 
   def index(conn, _params) do
     quotes = Repo.all(Quote)
     render(conn, "index.json", quotes: quotes)
   end
 
-  def create(conn, %{"quote" => quote_params}) do
+  def create(conn, %{"data" => quote_params}) do
     changeset = Quote.changeset(%Quote{}, quote_params)
 
     if changeset.valid? do
@@ -28,7 +28,7 @@ defmodule QuotesApi.V1.QuoteController do
     render conn, "show.json", quote: quote
   end
 
-  def update(conn, %{"id" => id, "quote" => quote_params}) do
+  def update(conn, %{"id" => id, "data" => quote_params}) do
     quote = Repo.get!(Quote, id)
     changeset = Quote.changeset(quote, quote_params)
 
