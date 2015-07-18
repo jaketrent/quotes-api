@@ -10,7 +10,7 @@ config :quotes_api, QuotesApi.Endpoint,
   url: [host: "localhost"],
   root: Path.dirname(__DIR__),
   secret_key_base: "4OSwmQcg4A5U7KNaWprPh1HPagIM5+hCVmsA0G6BDTs1YjmdOL7rIpQZMs/jpQBX",
-  render_errors: [default_format: "html"],
+  render_errors: [default_format: "json"],
   pubsub: [name: QuotesApi.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
