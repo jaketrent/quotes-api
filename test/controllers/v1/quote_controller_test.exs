@@ -30,26 +30,26 @@ defmodule QuotesApi.V1.QuoteControllerTest do
   end
 
   test "creates and renders resource when data is valid", %{conn: conn} do
-    conn = post conn, v1_quote_path(conn, :create), quote: @valid_attrs
+    conn = post conn, v1_quote_path(conn, :create), data: @valid_attrs
     assert json_response(conn, 200)["data"]["id"]
     assert Repo.get_by(Quote, @valid_attrs)
   end
 
   test "does not create resource and renders errors when data is invalid", %{conn: conn} do
-    conn = post conn, v1_quote_path(conn, :create), quote: @invalid_attrs
+    conn = post conn, v1_quote_path(conn, :create), data: @invalid_attrs
     assert json_response(conn, 422)["errors"] != %{}
   end
 
   test "updates and renders chosen resource when data is valid", %{conn: conn} do
     quote = Repo.insert! %Quote{}
-    conn = put conn, v1_quote_path(conn, :update, quote), quote: @valid_attrs
+    conn = put conn, v1_quote_path(conn, :update, quote), data: @valid_attrs
     assert json_response(conn, 200)["data"]["id"]
     assert Repo.get_by(Quote, @valid_attrs)
   end
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
     quote = Repo.insert! %Quote{}
-    conn = put conn, v1_quote_path(conn, :update, quote), quote: @invalid_attrs
+    conn = put conn, v1_quote_path(conn, :update, quote), data: @invalid_attrs
     assert json_response(conn, 422)["errors"] != %{}
   end
 
