@@ -10,7 +10,7 @@ defmodule QuotesApi.ErrorView do
   end
 
   def render("error.json", reason) do
-    status = reason.error.plug_status
+    status = Map.fetch(reason.error, :plug_status)
     %{ code: get_code(status),
        detail: String.capitalize(reason.error.message),
        status: status }
@@ -26,7 +26,6 @@ defmodule QuotesApi.ErrorView do
     case plug_status do
       400 -> "bad-request"
       404 -> "not-found"
-      422 -> "validation"
       _ -> "internal-server"
     end
   end
